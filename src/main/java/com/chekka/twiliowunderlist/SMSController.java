@@ -64,7 +64,7 @@ public class SMSController{
 	            .execute();
 	        
 	        SimpleDateFormat sdfDate = new SimpleDateFormat("MM/dd/yyy HH:mm");
-	        String formattedStartDate;
+	        String formattedStartDate = "";
 	        DateTime eventDate;
 	        
 	        List<Event> items = events.getItems();
@@ -75,7 +75,12 @@ public class SMSController{
 	            for (Event event : items) {
 	            	
 	            	eventDate = event.getStart().getDateTime();
-	            	formattedStartDate = sdfDate.format(new Date(eventDate.getValue()));
+	            	
+	            	if (eventDate != null)
+	            		formattedStartDate = sdfDate.format(new Date(eventDate.getValue()));
+	            	else{
+	            		formattedStartDate = event.getStart().toString();
+	            	}
 	            	
 	            	
 	                eventsSB.append(event.getSummary() + " : " + formattedStartDate + "\n");
